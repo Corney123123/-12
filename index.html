@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+   <meta property="og:title" content="苏说消保金融反诈挑战">
+   <meta property="og:description" content="测试您的金融安全知识，提高防诈意识！快来挑战吧！">
+   <meta property="og:image" content="https://your-username.github.io/financial-fraud-challenge/share-image.jpg">
+   <meta property="og:url" content="https://your-username.github.io/financial-fraud-challenge/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>苏说消保金融反诈挑战</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0d47a1, #b71c1c, #0d47a1);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(90deg, #0d47a1, #b71c1c);
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .header-logo {
+            height: 80px;
+            width: auto;
+            border-radius: 50%;
+            background: white;
+            padding: 5px;
+            object-fit: contain;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.0rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .screen {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .start-screen {
+            text-align: center;
+        }
+        
+        .start-screen i {
+            font-size: 5rem;
+            color: #0d47a1;
+            margin: 20px 0;
+        }
+        
+        .start-screen h2 {
+            font-size: 2.2rem;
+            color: #0d47a1;
+            margin-bottom: 20px;
+        }
+        
+        .start-screen p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            color: #444;
+        }
+        
+        .btn {
+            background: linear-gradient(90deg, #0d47a1, #b71c1c);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(183, 28, 28, 0.4);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(183, 28, 28, 0.6);
+        }
+        
+        .question-container {
+            margin-bottom: 30px;
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .question-count {
+            background: #0d47a1;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .question-type {
+            background: #ffd100;
+            color: #0d47a1;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        .timer {
+            background: #b71c1c;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .question {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 25px;
+            line-height: 1.4;
+            color: #0d47a1;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .option {
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background: #e9e9e9;
+            border-color: #0d47a1;
+        }
+        
+        .option.selected {
+            background: rgba(13, 71, 161, 0.1);
+            border-color: #0d47a1;
+        }
+        
+        .option.correct {
+            background: rgba(46, 204, 113, 0.2);
+            border-color: #2ecc71;
+        }
+        
+        .option.incorrect {
+            background: rgba(231, 76, 60, 0.2);
+            border-color: #e74c3c;
+        }
+        
+        .option-number {
+            width: 30px;
+            height: 30px;
+            background: #0d47a1;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .feedback {
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background: rgba(46, 204, 113, 0.2);
+            border: 2px solid #2ecc71;
+            color: #27ae60;
+        }
+        
+        .feedback.incorrect {
+            background: rgba(231, 76, 60, 0.2);
+            border: 2px solid #e74c3c;
+            color: #c0392b;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .results-screen {
+            text-align: center;
+        }
+        
+        .results-icon {
+            font-size: 6rem;
+            margin: 20px 0;
+        }
+        
+        .results-icon.good {
+            color: #2ecc71;
+        }
+        
+        .results-icon.average {
+            color: #f1c40f;
+        }
+        
+        .results-icon.poor {
+            color: #e74c3c;
+        }
+        
+        .score {
+            font-size: 4rem;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #0d47a1;
+        }
+        
+        .score-text {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .summary {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: left;
+        }
+        
+        .summary h3 {
+            color: #0d47a1;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .summary-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #0d47a1, #b71c1c);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.2);
+            font-size: 0.9rem;
+        }
+        
+        .warning-tip {
+            background-color: #fff8e1;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            text-align: left;
+        }
+        
+        .explanation-container {
+            margin-top: 20px;
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 20px;
+        }
+        
+        .explanation-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .explanation-item:last-child {
+            border-bottom: none;
+        }
+        
+        .explanation-question {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #0d47a1;
+        }
+        
+        .explanation-answer {
+            margin-bottom: 10px;
+        }
+        
+        .explanation-content {
+            background: #eef7ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        
+        .prevention-tip {
+            background-color: #e6f7ff;
+            border-left: 5px solid #0066b3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+        
+        .points-container {
+            background: #f0f8ff;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .points-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #0d47a1;
+            margin: 10px 0;
+        }
+        
+        .achievements-container {
+            margin: 20px 0;
+        }
+        
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .achievement-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid #ddd;
+        }
+        
+        .achievement-card.locked {
+            opacity: 0.5;
+        }
+        
+        .achievement-card.unlocked {
+            border-color: #ffd700;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        }
+        
+        .achievement-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+        
+        .achievement-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .achievement-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .new-achievement {
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header-logo {
+                height: 60px;
+            }
+            
+            .question {
+                font-size: 1.3rem;
+            }
+            
+            .btn {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+            
+            .achievements-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <!-- 用户提供的卡通风格人物Logo -->
+            <img src="data:image/jpeg;base64,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">
+            <div>
+                <h1>苏说消保金融反诈挑战</h1>
+                <p>识别新型诈骗，保护财产安全</p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- 开始界面 -->
+            <div class="screen start-screen active" id="startScreen">
+                <i class="fas fa-user-shield"></i>
+                <h2>金融安全知识挑战</h2>
+                <p>本测试包含5道关于新型金融诈骗、电信网络诈骗的识别和防范知识题目，每题限时30秒。提高您的安全意识和防范能力！</p>
+                
+                <div class="warning-tip">
+                    <i class="fas fa-exclamation-triangle"></i> 谨记：不轻信、不透露、不转账！
+                </div>
+                
+                <p>完成测试后，您将获得积分并解锁反诈成就！</p>
+                <button class="btn" id="startBtn">
+                    <i class="fas fa-shield-alt"></i> 开始挑战
+                </button>
+            </div>
+            
+            <!-- 答题界面 -->
+            <div class="screen" id="quizScreen">
+                <div class="question-header">
+                    <div class="question-count">问题 <span id="currentQuestion">1</span>/<span id="totalQuestions">5</span></div>
+                    <div class="timer"><i class="fas fa-clock"></i> <span id="timeLeft">30</span> 秒</div>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress" id="progressBar" style="width: 20%;"></div>
+                </div>
+                
+                <div class="question-container">
+                    <div class="question-type" id="questionType">单选题</div>
+                    <div class="question" id="question">问题加载中...</div>
+                    
+                    <div class="options" id="options">
+                        <!-- 选项通过JS动态生成 -->
+                    </div>
+                    
+                    <div class="feedback" id="feedback">
+                        <!-- 反馈信息 -->
+                    </div>
+                </div>
+                
+                <div class="navigation">
+                    <button class="btn" id="prevBtn" disabled><i class="fas fa-arrow-left"></i> 上一题</button>
+                    <button class="btn" id="nextBtn">下一题 <i class="fas fa-arrow-right"></i></button>
+                    <button class="btn" id="submitBtn" style="display: none;">提交答案</button>
+                </div>
+            </div>
+            
+            <!-- 结果界面 -->
+            <div class="screen" id="resultScreen">
+                <div class="results-screen">
+                    <i class="fas fa-shield-alt results-icon good" id="resultIcon"></i>
+                    <div class="score" id="finalScore">0/5</div>
+                    <div class="score-text" id="scoreText">安全卫士</div>
+                    
+                    <div class="summary">
+                        <h3>防诈能力分析</h3>
+                        <div class="summary-item">
+                            <span>答对题数:</span>
+                            <span id="correctAnswers">0/5</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>安全知识掌握度:</span>
+                            <span id="correctRate">0%</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>防范意识水平:</span>
+                            <span id="securityLevel">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="points-container">
+                        <h3>积分系统</h3>
+                        <div class="points-value" id="pointsEarned">+0</div>
+                        <p>本次挑战获得积分</p>
+                        <div class="points-value" id="totalPoints">0</div>
+                        <p>累计总积分</p>
+                    </div>
+                    
+                    <div class="achievements-container">
+                        <h3>反诈成就</h3>
+                        <div class="achievements-grid" id="achievementsGrid">
+                            <!-- 成就卡片通过JS动态生成 -->
+                        </div>
+                    </div>
+                    
+                    <div class="prevention-tip">
+                        <i class="fas fa-lightbulb"></i> <strong>防范建议：</strong> <span id="randomTip">建议加载中...</span>
+                    </div>
+                    
+                    <button class="btn" id="viewExplanationBtn"><i class="fas fa-book"></i> 查看题目解析</button>
+                    <button class="btn" id="restartBtn"><i class="fas fa-redo"></i> 重新挑战</button>
+                </div>
+            </div>
+            
+            <!-- 解析界面 -->
+            <div class="screen" id="explanationScreen">
+                <div class="results-screen">
+                    <h2><i class="fas fa-book-open"></i> 题目解析</h2>
+                    
+                    <div class="explanation-container" id="explanationContainer">
+                        <!-- 解析内容通过JS动态生成 -->
+                    </div>
+                    
+                    <button class="btn" id="backToResultsBtn"><i class="fas fa-arrow-left"></i> 返回结果</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            苏说消保金融反诈挑战 &copy; 2025 | 提高防诈意识，守护财产安全
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 游戏状态
+            const gameState = {
+                currentQuestion: 0,
+                score: 0,
+                timePerQuestion: 30,
+                timeLeft: 30,
+                timer: null,
+                answers: [],
+                startTime: null,
+                selectedQuestions: [],
+                points: 0,
+                achievements: [],
+                completedChallenges: 0,
+                totalCorrectAnswers: 0
+            };
+            
+            // 防范建议列表
+            const preventionTips = [
+                "不轻信陌生来电，特别是自称公检法、银行客服的电话",
+                "不透露个人信息，包括身份证号、银行卡号、验证码等",
+                "不随意点击不明链接或扫描不明二维码",
+                "转账前务必通过多种渠道核实对方身份",
+                "定期修改密码，使用复杂密码并启用双重验证",
+                "安装国家反诈中心APP，开启来电预警功能",
+                "警惕高回报投资理财，谨防'杀猪盘'诈骗",
+                "网购退款要通过官方渠道操作，不提供验证码",
+                "不参与网络刷单、点赞赚钱等兼职活动",
+                "定期检查银行账户交易记录，发现异常立即冻结账户",
+                "家人朋友通过社交软件借钱，务必电话或视频核实",
+                "不轻信中奖信息，特别是要求先交税或手续费的",
+                "使用官方渠道下载APP，不从非官方链接下载",
+                "公共WiFi不进行敏感操作，如网银交易",
+                "定期更新操作系统和应用程序的安全补丁"
+            ];
+            
+            // 成就系统
+            const achievements = [
+                {
+                    id: "first_time",
+                    title: "初次挑战",
+                    description: "完成第一次挑战",
+                    icon: "fas fa-star",
+                    unlocked: false
+                },
+                {
+                    id: "perfect_score",
+                    title: "满分通关",
+                    description: "单次挑战获得满分",
+                    icon: "fas fa-trophy",
+                    unlocked: false
+                },
+                {
+                    id: "speed_runner",
+                    title: "速战速决",
+                    description: "所有题目在15秒内完成",
+                    icon: "fas fa-bolt",
+                    unlocked: false
+                },
+                {
+                    id: "knowledge_master",
+                    title: "知识大师",
+                    description: "累计答对20道题",
+                    icon: "fas fa-graduation-cap",
+                    unlocked: false
+                },
+                {
+                    id: "dedicated_learner",
+                    title: "坚持不懈",
+                    description: "完成5次挑战",
+                    icon: "fas fa-medal",
+                    unlocked: false
+                },
+                {
+                    id: "security_expert",
+                    title: "安全专家",
+                    description: "累计获得100积分",
+                    icon: "fas fa-shield-alt",
+                    unlocked: false
+                },
+                {
+                    id: "fraud_preventer",
+                    title: "反诈先锋",
+                    description: "完成10次挑战",
+                    icon: "fas fa-user-secret",
+                    unlocked: false
+                },
+                {
+                    id: "top_performer",
+                    title: "顶尖表现",
+                    description: "累计获得500积分",
+                    icon: "fas fa-crown",
+                    unlocked: false
+                }
+            ];
+            
+            // 金融防诈题目库
+            const questionBank = {
+                // 30道单选题
+                single: [
+                    {
+                        question: "收到自称银行短信，称您的账户异常需点击链接处理，您应该：",
+                        options: [
+                            "立即点击链接处理",
+                            "拨打银行官方客服核实",
+                            "直接删除短信",
+                            "转发给朋友验证真伪"
+                        ],
+                        answer: 1,
+                        explanation: "正确！银行不会通过短信发送可疑链接。遇到这种情况请直接拨打银行官方客服电话核实。",
+                        category: "电信诈骗",
+                        type: "单选题"
+                    },
+                    {
+                        question: "以下哪种情况可能是'杀猪盘'诈骗？",
+                        options: [
+                            "陌生人自称国外富商，诱导投资虚拟货币",
+                            "朋友打电话借钱",
+                            "收到中奖通知",
+                            "客服称商品质量有问题需退货退款"
+                        ],
+                        answer: 0,
+                        explanation: "正确！'杀猪盘'诈骗者通常先建立感情关系，然后诱导受害者进行投资或赌博。",
+                        category: "情感诈骗",
+                        type: "单选题"
+                    },
+                    {
+                        question: "接到'公检法'电话称您涉嫌洗钱，要求配合调查并转账保证金，您该怎么做？",
+                        options: [
+                            "立即配合转账",
+                            "到公安局配合调查",
+                            "挂断电话并拨打110报警",
+                            "按对方要求保密并配合"
+                        ],
+                        answer: 2,
+                        explanation: "正确！公安机关不会电话办案，更不会要求您转账。这种情况应立即拨打110报警。",
+                        category: "冒充公检法",
+                        type: "单选题"
+                    },
+                    {
+                        question: "哪种支付方式最不容易被诈骗？",
+                        options: [
+                            "扫码支付",
+                            "点击不明链接支付",
+                            "直接转账给陌生人",
+                            "通过正规平台交易"
+                        ],
+                        answer: 3,
+                        explanation: "正确！通过正规交易平台支付有资金保障，是最安全的付款方式。",
+                        category: "支付安全",
+                        type: "单选题"
+                    },
+                    {
+                        question: "接到自称快递公司电话，称您的包裹丢失需要退款，您该怎样做？",
+                        options: [
+                            "提供银行卡信息领取退款",
+                            "按对方要求下载APP操作",
+                            "登录官方APP或联系卖家核实",
+                            "提供验证码给对方"
+                        ],
+                        answer: 2,
+                        explanation: "正确！快递或电商退款不会要求提供银行卡信息或验证码，应通过官方渠道核实。",
+                        category: "退款诈骗",
+                        type: "单选题"
+                    },
+                    {
+                        question: "某网络平台宣传'高回报、零风险'投资项目，您应该如何判断？",
+                        options: [
+                            "立即投资高回报项目",
+                            "高回报意味着高风险，应谨慎",
+                            "拉朋友一起投资分散风险",
+                            "投资小金额试试"
+                        ],
+                        answer: 1,
+                        explanation: "正确！金融诈骗常用'高回报、低风险'为诱饵，谨记所有投资都有风险。",
+                        category: "金融诈骗",
+                        type: "单选题"
+                    },
+                    {
+                        question: "如何防范假冒熟人通过社交媒体借钱？",
+                        options: [
+                            "直接转账",
+                            "进行视频或语音通话确认身份",
+                            "立即询问详细情况",
+                            "提供银行卡信息"
+                        ],
+                        answer: 1,
+                        explanation: "正确！收到亲友借钱信息，务必通过视频或当面方式确认对方身份真实性。",
+                        category: "社交诈骗",
+                        type: "单选题"
+                    },
+                    {
+                        question: "哪种密码设置方式最安全？",
+                        options: [
+                            "使用相同密码管理所有账号",
+                            "设置简单易记的密码如生日",
+                            "长度8位以上，包含字母、数字、符号",
+                            "直接在浏览器保存密码"
+                        ],
+                        answer: 2,
+                        explanation: "正确！安全的密码应足够长（12位以上），包含大小写字母、数字和符号组合。",
+                        category: "账户安全",
+                        type: "单选题"
+                    },
+                    {
+                        question: "收到自称税务机关的电话要求补缴税款，您该怎么做？",
+                        options: [
+                            "立即转账缴税",
+                            "到税务机关咨询",
+                            "按对方要求提供个人银行信息",
+                            "通过12366税务服务热线核实"
+                        ],
+                        answer: 3,
+                        explanation: "正确！税务部门不会在电话中要求转账或提供个人银行信息，应通过官方渠道核实。",
+                        category: "税务诈骗",
+                        type: "单选题"
+                    },
+                    {
+                        question: "发现被诈骗后，第一时间应该怎么做？",
+                        options: [
+                            "删除所有证据",
+                            "上网查找解决方法",
+                            "立即拨打110或96110报警",
+                            "隐瞒情况不让家人知道"
+                        ],
+                        answer: 2,
+                        explanation: "正确！发现被骗后应立即报警并冻结账户，越早报案挽回损失的可能性越大。",
+                        category: "应急处置",
+                        type: "单选题"
+                    }
+                ],
+                
+                // 10道多选题
+                multiple: [
+                    {
+                        question: "哪些行为可能涉及金融诈骗？",
+                        options: [
+                            "陌生人要求提供银行卡信息",
+                            "要求转账到安全账户",
+                            "点击不明链接填写个人信息",
+                            "通过正规渠道办理业务"
+                        ],
+                        answer: [0, 1, 2], // 正确选项索引数组
+                        explanation: "正确！金融诈骗常通过要求提供银行卡信息、转账到所谓'安全账户'或点击不明链接获取个人信息。正规渠道办理业务是安全的。",
+                        category: "诈骗识别",
+                        type: "多选题"
+                    },
+                    {
+                        question: "防范电信诈骗的正确做法包括：",
+                        options: [
+                            "不轻信陌生来电",
+                            "不透露个人信息",
+                            "不随意转账",
+                            "安装国家反诈中心APP"
+                        ],
+                        answer: [0, 1, 2, 3],
+                        explanation: "正确！防范电信诈骗要做到不轻信、不透露、不转账，同时安装国家反诈中心APP可有效识别和拦截诈骗电话。",
+                        category: "防范措施",
+                        type: "多选题"
+                    },
+                    {
+                        question: "识别虚假投资平台的特征包括：",
+                        options: [
+                            "承诺高回报低风险",
+                            "要求发展下线获取佣金",
+                            "提供正规营业执照",
+                            "使用非官方支付渠道"
+                        ],
+                        answer: [0, 1, 3],
+                        explanation: "正确！虚假投资平台常承诺高回报低风险，要求发展下线，并使用非官方支付渠道。正规平台会提供合法营业执照。",
+                        category: "投资诈骗",
+                        type: "多选题"
+                    },
+                    {
+                        question: "防范网络购物诈骗的方法包括：",
+                        options: [
+                            "只在正规电商平台购物",
+                            "点击卖家提供的链接付款",
+                            "收到退款要求时联系官方客服",
+                            "提供验证码确认身份"
+                        ],
+                        answer: [0, 2],
+                        explanation: "正确！防范网购诈骗应只在正规平台购物，收到退款要求时联系官方客服核实。切勿点击不明链接或提供验证码。",
+                        category: "购物诈骗",
+                        type: "多选题"
+                    },
+                    {
+                        question: "收到陌生号码发来的'请查收合同'短信并附链接，您应该：",
+                        options: [
+                            "点击查看",
+                            "直接删除",
+                            "保存链接以备后用",
+                            "转发给朋友确认"
+                        ],
+                        answer: [1],
+                        explanation: "正确！陌生链接很可能是诈骗陷阱，应直接删除并举报垃圾短信。",
+                        category: "短信诈骗",
+                        type: "多选题"
+                    }
+                ],
+                
+                // 10道判断题
+                judge: [
+                    {
+                        question: "收到中奖短信要求先交手续费才能领奖是合法的。",
+                        options: ["正确", "错误"],
+                        answer: 1,
+                        explanation: "错误！正规中奖活动不会要求先交手续费。这是典型的'中奖诈骗'手段，切勿相信。",
+                        category: "中奖诈骗",
+                        type: "判断题"
+                    },
+                    {
+                        question: "所有400开头的电话都是官方客服电话。",
+                        options: ["正确", "错误"],
+                        answer: 1,
+                        explanation: "错误！诈骗者常伪造400号码。唯一可靠的电话是银行官网公布的客服号码。",
+                        category: "客服诈骗",
+                        type: "判断题"
+                    },
+                    {
+                        question: "公检法机关会通过电话要求转账到安全账户。",
+                        options: ["正确", "错误"],
+                        answer: 1,
+                        explanation: "错误！公检法机关不会通过电话要求转账。遇到此类情况应立即报警。",
+                        category: "冒充公检法",
+                        type: "判断题"
+                    },
+                    {
+                        question: "刷单返现是合法的兼职工作。",
+                        options: ["正确", "错误"],
+                        answer: 1,
+                        explanation: "错误！刷单行为违反电商平台规定，多数情况是诈骗陷阱。",
+                        category: "兼职诈骗",
+                        type: "判断题"
+                    },
+                    {
+                        question: "接到电话称可'取消网络贷款会员'但需手续费，您应该支付手续费。",
+                        options: ["正确", "错误"],
+                        answer: 1,
+                        explanation: "错误！正规金融机构不会收取'取消会员'费用，这是新型诈骗手段。",
+                        category: "贷款诈骗",
+                        type: "判断题"
+                    }
+                ]
+            };
+            
+            // DOM元素
+            const startScreen = document.getElementById('startScreen');
+            const quizScreen = document.getElementById('quizScreen');
+            const resultScreen = document.getElementById('resultScreen');
+            const explanationScreen = document.getElementById('explanationScreen');
+            const startBtn = document.getElementById('startBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const restartBtn = document.getElementById('restartBtn');
+            const viewExplanationBtn = document.getElementById('viewExplanationBtn');
+            const backToResultsBtn = document.getElementById('backToResultsBtn');
+            const questionElement = document.getElementById('question');
+            const questionTypeElement = document.getElementById('questionType');
+            const optionsElement = document.getElementById('options');
+            const feedbackElement = document.getElementById('feedback');
+            const currentQuestionElement = document.getElementById('currentQuestion');
+            const totalQuestionsElement = document.getElementById('totalQuestions');
+            const timeLeftElement = document.getElementById('timeLeft');
+            const progressBar = document.getElementById('progressBar');
+            const finalScoreElement = document.getElementById('finalScore');
+            const scoreTextElement = document.getElementById('scoreText');
+            const resultIcon = document.getElementById('resultIcon');
+            const correctRateElement = document.getElementById('correctRate');
+            const correctAnswersElement = document.getElementById('correctAnswers');
+            const securityLevelElement = document.getElementById('securityLevel');
+            const randomTipElement = document.getElementById('randomTip');
+            const pointsEarnedElement = document.getElementById('pointsEarned');
+            const totalPointsElement = document.getElementById('totalPoints');
+            const achievementsGrid = document.getElementById('achievementsGrid');
+            const explanationContainer = document.getElementById('explanationContainer');
+            
+            // 随机选择题目
+            function getRandomQuestions() {
+                // 随机选择3道单选题
+                const shuffledSingle = [...questionBank.single].sort(() => 0.5 - Math.random());
+                const selectedSingle = shuffledSingle.slice(0, 3);
+                
+                // 随机选择1道多选题
+                const shuffledMultiple = [...questionBank.multiple].sort(() => 0.5 - Math.random());
+                const selectedMultiple = shuffledMultiple.slice(0, 1);
+                
+                // 随机选择1道判断题
+                const shuffledJudge = [...questionBank.judge].sort(() => 0.5 - Math.random());
+                const selectedJudge = shuffledJudge.slice(0, 1);
+                
+                // 合并所有题目
+                return [...selectedSingle, ...selectedMultiple, ...selectedJudge];
+            }
+            
+            // 获取随机防范建议
+            function getRandomPreventionTip() {
+                const randomIndex = Math.floor(Math.random() * preventionTips.length);
+                return preventionTips[randomIndex];
+            }
+            
+            // 初始化游戏
+            function initGame() {
+                // 加载游戏状态
+                loadGameState();
+                
+                // 随机选择题目
+                gameState.selectedQuestions = getRandomQuestions();
+                totalQuestionsElement.textContent = gameState.selectedQuestions.length;
+                gameState.currentQuestion = 0;
+                gameState.score = 0;
+                gameState.answers = Array(gameState.selectedQuestions.length).fill(null);
+                loadQuestion();
+            }
+            
+            // 加载游戏状态
+            function loadGameState() {
+                const savedState = localStorage.getItem('fraudChallengeState');
+                if (savedState) {
+                    const parsedState = JSON.parse(savedState);
+                    gameState.points = parsedState.points || 0;
+                    gameState.achievements = parsedState.achievements || [];
+                    gameState.completedChallenges = parsedState.completedChallenges || 0;
+                    gameState.totalCorrectAnswers = parsedState.totalCorrectAnswers || 0;
+                    
+                    // 更新成就状态
+                    achievements.forEach(achievement => {
+                        achievement.unlocked = gameState.achievements.includes(achievement.id);
+                    });
+                }
+            }
+            
+            // 保存游戏状态
+            function saveGameState() {
+                const stateToSave = {
+                    points: gameState.points,
+                    achievements: gameState.achievements,
+                    completedChallenges: gameState.completedChallenges,
+                    totalCorrectAnswers: gameState.totalCorrectAnswers
+                };
+                localStorage.setItem('fraudChallengeState', JSON.stringify(stateToSave));
+            }
+            
+            // 加载问题
+            function loadQuestion() {
+                clearInterval(gameState.timer);
+                
+                const question = gameState.selectedQuestions[gameState.currentQuestion];
+                questionElement.textContent = question.question;
+                questionTypeElement.textContent = question.type;
+                optionsElement.innerHTML = '';
+                
+                // 更新问题计数
+                currentQuestionElement.textContent = gameState.currentQuestion + 1;
+                
+                // 更新进度条
+                const progressPercentage = ((gameState.currentQuestion) / gameState.selectedQuestions.length) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+                
+                // 生成选项
+                question.options.forEach((option, index) => {
+                    const optionElement = document.createElement('div');
+                    optionElement.classList.add('option');
+                    
+                    const optionNumber = document.createElement('div');
+                    optionNumber.classList.add('option-number');
+                    optionNumber.textContent = String.fromCharCode(65 + index);
+                    
+                    const optionText = document.createElement('div');
+                    optionText.classList.add('option-text');
+                    optionText.textContent = option;
+                    
+                    optionElement.appendChild(optionNumber);
+                    optionElement.appendChild(optionText);
+                    
+                    optionElement.addEventListener('click', () => selectOption(index));
+                    
+                    // 如果之前已经选择过，恢复选择状态
+                    if (Array.isArray(gameState.answers[gameState.currentQuestion]) && 
+                        gameState.answers[gameState.currentQuestion].includes(index)) {
+                        optionElement.classList.add('selected');
+                    } else if (gameState.answers[gameState.currentQuestion] === index) {
+                        optionElement.classList.add('selected');
+                    }
+                    
+                    optionsElement.appendChild(optionElement);
+                });
+                
+                // 更新按钮状态
+                prevBtn.disabled = gameState.currentQuestion === 0;
+                nextBtn.disabled = false;
+                submitBtn.style.display = gameState.currentQuestion === gameState.selectedQuestions.length - 1 ? 'block' : 'none';
+                nextBtn.style.display = gameState.currentQuestion === gameState.selectedQuestions.length - 1 ? 'none' : 'block';
+                
+                // 重置反馈
+                feedbackElement.style.display = 'none';
+                feedbackElement.textContent = '';
+                feedbackElement.className = 'feedback';
+                
+                // 启动计时器
+                gameState.timeLeft = gameState.timePerQuestion;
+                timeLeftElement.textContent = gameState.timeLeft;
+                startTimer();
+            }
+            
+            // 开始计时器
+            function startTimer() {
+                clearInterval(gameState.timer);
+                gameState.timer = setInterval(() => {
+                    gameState.timeLeft--;
+                    timeLeftElement.textContent = gameState.timeLeft;
+                    
+                    if (gameState.timeLeft <= 0) {
+                        clearInterval(gameState.timer);
+                        feedbackElement.textContent = "时间到！";
+                        feedbackElement.classList.remove('correct', 'incorrect');
+                        feedbackElement.style.display = 'block';
+                        setTimeout(() => {
+                            if (gameState.currentQuestion < gameState.selectedQuestions.length - 1) {
+                                nextQuestion();
+                            } else {
+                                submitQuiz();
+                            }
+                        }, 1500);
+                    }
+                }, 1000);
+            }
+            
+            // 选择选项
+            function selectOption(optionIndex) {
+                const question = gameState.selectedQuestions[gameState.currentQuestion];
+                
+                // 多选题处理
+                if (question.type === "多选题") {
+                    // 初始化答案数组
+                    if (!Array.isArray(gameState.answers[gameState.currentQuestion])) {
+                        gameState.answers[gameState.currentQuestion] = [];
+                    }
+                    
+                    // 切换选择状态
+                    const optionElement = document.querySelectorAll('.option')[optionIndex];
+                    const isSelected = optionElement.classList.contains('selected');
+                    
+                    if (isSelected) {
+                        optionElement.classList.remove('selected');
+                        // 从数组中移除选项
+                        gameState.answers[gameState.currentQuestion] = gameState.answers[gameState.currentQuestion]
+                            .filter(idx => idx !== optionIndex);
+                    } else {
+                        optionElement.classList.add('selected');
+                        // 添加到数组
+                        gameState.answers[gameState.currentQuestion].push(optionIndex);
+                    }
+                } 
+                // 单选题和判断题处理
+                else {
+                    // 移除之前的选择
+                    document.querySelectorAll('.option').forEach(option => {
+                        option.classList.remove('selected');
+                    });
+                    
+                    // 标记当前选择
+                    const selectedOption = document.querySelectorAll('.option')[optionIndex];
+                    selectedOption.classList.add('selected');
+                    
+                    // 保存答案
+                    gameState.answers[gameState.currentQuestion] = optionIndex;
+                }
+                
+                // 如果是最后一题，显示提交按钮
+                if (gameState.currentQuestion === gameState.selectedQuestions.length - 1) {
+                    submitBtn.style.display = 'block';
+                    nextBtn.style.display = 'none';
+                }
+            }
+            
+            // 下一题
+            function nextQuestion() {
+                if (gameState.currentQuestion < gameState.selectedQuestions.length - 1) {
+                    gameState.currentQuestion++;
+                    loadQuestion();
+                }
+            }
+            
+            // 上一题
+            function prevQuestion() {
+                if (gameState.currentQuestion > 0) {
+                    gameState.currentQuestion--;
+                    loadQuestion();
+                }
+            }
+            
+            // 提交答案
+            function submitQuiz() {
+                clearInterval(gameState.timer);
+                
+                // 计算得分
+                gameState.score = 0;
+                gameState.answers.forEach((answer, index) => {
+                    const question = gameState.selectedQuestions[index];
+                    
+                    // 多选题计分
+                    if (question.type === "多选题") {
+                        if (Array.isArray(answer) && 
+                            answer.length === question.answer.length &&
+                            answer.every(val => question.answer.includes(val))) {
+                            gameState.score++;
+                        }
+                    } 
+                    // 单选题和判断题计分
+                    else {
+                        if (answer === question.answer) {
+                            gameState.score++;
+                        }
+                    }
+                });
+                
+                // 更新挑战次数
+                gameState.completedChallenges++;
+                
+                // 更新总答对题数
+                gameState.totalCorrectAnswers += gameState.score;
+                
+                // 计算积分
+                const pointsEarned = gameState.score * 10;
+                gameState.points += pointsEarned;
+                
+                // 检查成就
+                const newAchievements = checkAchievements(pointsEarned);
+                
+                // 保存游戏状态
+                saveGameState();
+                
+                // 显示结果屏幕
+                showResults(pointsEarned, newAchievements);
+            }
+            
+            // 检查成就
+            function checkAchievements(pointsEarned) {
+                const newAchievements = [];
+                
+                // 初次挑战成就
+                if (gameState.completedChallenges === 1 && !gameState.achievements.includes("first_time")) {
+                    gameState.achievements.push("first_time");
+                    newAchievements.push("first_time");
+                }
+                
+                // 满分通关成就
+                if (gameState.score === gameState.selectedQuestions.length && !gameState.achievements.includes("perfect_score")) {
+                    gameState.achievements.push("perfect_score");
+                    newAchievements.push("perfect_score");
+                }
+                
+                // 知识大师成就（累计答对20题）
+                if (gameState.totalCorrectAnswers >= 20 && !gameState.achievements.includes("knowledge_master")) {
+                    gameState.achievements.push("knowledge_master");
+                    newAchievements.push("knowledge_master");
+                }
+                
+                // 坚持不懈成就（完成5次挑战）
+                if (gameState.completedChallenges >= 5 && !gameState.achievements.includes("dedicated_learner")) {
+                    gameState.achievements.push("dedicated_learner");
+                    newAchievements.push("dedicated_learner");
+                }
+                
+                // 安全专家成就（累计获得100积分）
+                if (gameState.points >= 100 && !gameState.achievements.includes("security_expert")) {
+                    gameState.achievements.push("security_expert");
+                    newAchievements.push("security_expert");
+                }
+                
+                // 反诈先锋成就（完成10次挑战）
+                if (gameState.completedChallenges >= 10 && !gameState.achievements.includes("fraud_preventer")) {
+                    gameState.achievements.push("fraud_preventer");
+                    newAchievements.push("fraud_preventer");
+                }
+                
+                // 顶尖表现成就（累计获得500积分）
+                if (gameState.points >= 500 && !gameState.achievements.includes("top_performer")) {
+                    gameState.achievements.push("top_performer");
+                    newAchievements.push("top_performer");
+                }
+                
+                return newAchievements;
+            }
+            
+            // 显示结果
+            function showResults(pointsEarned, newAchievements) {
+                const scorePercentage = Math.round((gameState.score / gameState.selectedQuestions.length) * 100);
+                finalScoreElement.textContent = `${gameState.score}/${gameState.selectedQuestions.length}`;
+                correctAnswersElement.textContent = `${gameState.score}/${gameState.selectedQuestions.length}`;
+                correctRateElement.textContent = `${scorePercentage}%`;
+                
+                // 设置结果文本和图标
+                if (scorePercentage >= 80) {
+                    scoreTextElement.textContent = "防诈专家！";
+                    securityLevelElement.textContent = "非常高";
+                    resultIcon.className = "fas fa-shield-alt results-icon good";
+                } else if (scorePercentage >= 60) {
+                    scoreTextElement.textContent = "安全卫士";
+                    securityLevelElement.textContent = "良好";
+                    resultIcon.className = "fas fa-shield-alt results-icon average";
+                } else if (scorePercentage >= 40) {
+                    scoreTextElement.textContent = "安全意识中等";
+                    securityLevelElement.textContent = "中等";
+                    resultIcon.className = "fas fa-shield-alt results-icon average";
+                } else {
+                    scoreTextElement.textContent = "需提高防范意识";
+                    securityLevelElement.textContent = "需加强";
+                    resultIcon.className = "fas fa-shield-alt results-icon poor";
+                }
+                
+                // 显示积分
+                pointsEarnedElement.textContent = `+${pointsEarned}`;
+                totalPointsElement.textContent = gameState.points;
+                
+                // 显示随机防范建议
+                randomTipElement.textContent = getRandomPreventionTip();
+                
+                // 显示成就
+                renderAchievements(newAchievements);
+                
+                // 切换到结果屏幕
+                quizScreen.classList.remove('active');
+                resultScreen.classList.add('active');
+            }
+            
+            // 渲染成就
+            function renderAchievements(newAchievements = []) {
+                achievementsGrid.innerHTML = '';
+                
+                achievements.forEach(achievement => {
+                    const achievementCard = document.createElement('div');
+                    achievementCard.classList.add('achievement-card');
+                    
+                    if (gameState.achievements.includes(achievement.id)) {
+                        achievementCard.classList.add('unlocked');
+                        if (newAchievements.includes(achievement.id)) {
+                            achievementCard.classList.add('new-achievement');
+                        }
+                    } else {
+                        achievementCard.classList.add('locked');
+                    }
+                    
+                    achievementCard.innerHTML = `
+                        <div class="achievement-icon">
+                            <i class="${achievement.icon}"></i>
+                        </div>
+                        <div class="achievement-title">${achievement.title}</div>
+                        <div class="achievement-desc">${achievement.description}</div>
+                    `;
+                    
+                    achievementsGrid.appendChild(achievementCard);
+                });
+            }
+            
+            // 显示解析
+            function showExplanations() {
+                explanationContainer.innerHTML = '';
+                
+                gameState.selectedQuestions.forEach((question, index) => {
+                    const explanationItem = document.createElement('div');
+                    explanationItem.classList.add('explanation-item');
+                    
+                    const questionElement = document.createElement('div');
+                    questionElement.classList.add('explanation-question');
+                    questionElement.textContent = `${index + 1}. ${question.question}`;
+                    
+                    const answerElement = document.createElement('div');
+                    answerElement.classList.add('explanation-answer');
+                    
+                    // 获取用户答案
+                    let userAnswer = gameState.answers[index];
+                    let userAnswerText = '';
+                    
+                    if (Array.isArray(userAnswer)) {
+                        userAnswerText = userAnswer.map(idx => String.fromCharCode(65 + idx)).join(', ');
+                    } else if (typeof userAnswer === 'number') {
+                        userAnswerText = String.fromCharCode(65 + userAnswer);
+                    }
+                    
+                    // 获取正确答案
+                    let correctAnswerText = '';
+                    
+                    if (Array.isArray(question.answer)) {
+                        correctAnswerText = question.answer.map(idx => String.fromCharCode(65 + idx)).join(', ');
+                    } else {
+                        correctAnswerText = String.fromCharCode(65 + question.answer);
+                    }
+                    
+                    answerElement.innerHTML = `
+                        <strong>您的答案:</strong> ${userAnswerText || '未作答'}
+                        <br>
+                        <strong>正确答案:</strong> ${correctAnswerText}
+                    `;
+                    
+                    const explanationContent = document.createElement('div');
+                    explanationContent.classList.add('explanation-content');
+                    explanationContent.textContent = question.explanation;
+                    
+                    explanationItem.appendChild(questionElement);
+                    explanationItem.appendChild(answerElement);
+                    explanationItem.appendChild(explanationContent);
+                    
+                    explanationContainer.appendChild(explanationItem);
+                });
+                
+                resultScreen.classList.remove('active');
+                explanationScreen.classList.add('active');
+            }
+            
+            // 事件监听
+            startBtn.addEventListener('click', () => {
+                startScreen.classList.remove('active');
+                quizScreen.classList.add('active');
+                initGame();
+            });
+            
+            nextBtn.addEventListener('click', nextQuestion);
+            prevBtn.addEventListener('click', prevQuestion);
+            submitBtn.addEventListener('click', submitQuiz);
+            restartBtn.addEventListener('click', () => {
+                resultScreen.classList.remove('active');
+                startScreen.classList.add('active');
+            });
+            
+            viewExplanationBtn.addEventListener('click', showExplanations);
+            backToResultsBtn.addEventListener('click', () => {
+                explanationScreen.classList.remove('active');
+                resultScreen.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
